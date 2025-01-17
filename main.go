@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 )
 
@@ -11,14 +10,14 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to load configuration: %v", err)
 	}
-	fmt.Printf("Service will run on port: %s\n", config.Server.Port)
 
 	// Init logger
 	if err := ConfigureLogger(config.Logging.Level); err != nil {
 		log.Fatalf("Failed to configure logger: %v", err)
 	}
 
-	log.Println("Logger initialized")
+	Info("Logger initialized")
+	Info("Service will run on port: %s\n", config.Server.Port)
 
 	// Example usage of logging at different levels
 	Info("Application started")

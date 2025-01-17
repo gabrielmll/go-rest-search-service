@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"strings"
+	"time"
 )
 
 // LogLevel type defines the available log levels
@@ -33,34 +34,38 @@ func ConfigureLogger(level string) error {
 		return fmt.Errorf("invalid log level: %s", level)
 	}
 
-	// Set the log output format
-	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
+	log.SetFlags(0)
+	log.SetPrefix("")
 
 	// Output a message indicating the configured log level
 	log.Printf("Log level set to %s", level)
 	return nil
 }
 
-// LogDebug logs a message with the Debug level
-func Debug(v ...interface{}) {
+// logMessage logs a message with my custom format
+func logMessage(level string, format string, v ...interface{}) {
+	currentTime := time.Now().Format("2006-01-02 15:04:05")
+	message := fmt.Sprintf(format, v...)
+	log.Printf("%s [%s] %s", currentTime, level, message)
+}
+
+// Debug logs a message with the Debug level
+func Debug(format string, v ...interface{}) {
 	if currentLogLevel <= DebugLevel {
-		log.SetPrefix("[DEBUG] ")
-		log.Println(v...)
+		logMessage("DEBUG", format, v...)
 	}
 }
 
-// LogInfo logs a message with the Info level
-func Info(v ...interface{}) {
+// Info logs a message with the Info level
+func Info(format string, v ...interface{}) {
 	if currentLogLevel <= InfoLevel {
-		log.SetPrefix("[INFO] ")
-		log.Println(v...)
+		logMessage("INFO", format, v...)
 	}
 }
 
-// LogError logs a message with the Error level
-func Error(v ...interface{}) {
+// Error logs a message with the Error level
+func Error(format string, v ...interface{}) {
 	if currentLogLevel <= ErrorLevel {
-		log.SetPrefix("[ERROR] ")
-		log.Println(v...)
+		logMessage("ERROR", format, v...)
 	}
 }
