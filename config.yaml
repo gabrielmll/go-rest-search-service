@@ -1,0 +1,13 @@
+# Configuration file for the Go REST Search Service
+
+# Server configuration
+server:
+  port: "8080"
+
+# Logging configuration
+logging:
+  level: "debug"
+
+# Input file configuration
+file:
+  path: "input.txt"
