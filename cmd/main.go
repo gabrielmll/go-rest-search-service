@@ -2,9 +2,11 @@ package main
 
 import (
 	"log"
+	"net/http"
 
 	"go-rest-search-service/internal/config"
 	"go-rest-search-service/internal/logger"
+	"go-rest-search-service/pkg/api"
 )
 
 func main() {
@@ -18,12 +20,10 @@ func main() {
 	if err := logger.ConfigureLogger(config.Logging.Level); err != nil {
 		log.Fatalf("Failed to configure logger: %v", err)
 	}
-
 	logger.Info("Logger initialized")
-	logger.Info("Service will run on port: %s\n", config.Server.Port)
 
-	// Example usage of logging at different levels
-	logger.Info("Application started")
-	logger.Debug("This is a debug message")
-	logger.Error("An error occurred")
+	http.HandleFunc("/test/", api.EndpointHandler())
+
+	logger.Info("Starting server on port: %s\n", config.Server.Port)
+	log.Fatal(http.ListenAndServe(":"+config.Server.Port, nil))
 }
