@@ -6,6 +6,7 @@ import (
 
 	"go-rest-search-service/internal/config"
 	"go-rest-search-service/internal/logger"
+	"go-rest-search-service/internal/utils"
 	"go-rest-search-service/pkg/api"
 )
 
@@ -22,7 +23,15 @@ func main() {
 	}
 	logger.Info("Logger initialized")
 
-	http.HandleFunc("/test/", api.EndpointHandler())
+	// Load numbers from the file to a slice
+	numbers, err := utils.LoadNumbersFile(config.File.Path)
+	if err != nil {
+		log.Fatalf("Failed to load numbers from file: %v", err)
+	}
+	logger.Info("Numbers loaded from %s\n", config.File.Path)
+
+	// Register api endpoints
+	http.HandleFunc("/test/", api.EndpointHandler(numbers))
 
 	logger.Info("Starting server on port: %s\n", config.Server.Port)
 	log.Fatal(http.ListenAndServe(":"+config.Server.Port, nil))
