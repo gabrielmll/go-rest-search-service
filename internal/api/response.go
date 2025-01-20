@@ -13,6 +13,7 @@ type Response struct {
 	Value        *int   `json:"value,omitempty"`
 }
 
+// SendResponse ensures a fixed pattern to this API reponses
 func SendResponse(w http.ResponseWriter, statusCode int, errorMessage string, index *int, value *int) {
 	response := Response{
 		Status:       statusCode,
