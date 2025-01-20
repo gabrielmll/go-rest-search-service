@@ -37,8 +37,6 @@ func ConfigureLogger(level string) error {
 	log.SetFlags(0)
 	log.SetPrefix("")
 
-	// Output a message indicating the configured log level
-	log.Printf("Log level set to %s", level)
 	return nil
 }
 

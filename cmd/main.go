@@ -21,7 +21,7 @@ func main() {
 	if err := logger.ConfigureLogger(config.Logging.Level); err != nil {
 		log.Fatalf("Failed to configure logger: %v", err)
 	}
-	logger.Info("Logger initialized")
+	logger.Info("Logger initialized. Log level set to %v", config.Logging.Level)
 
 	// Load numbers from the file to a slice
 	numbers, err := utils.LoadNumbersFile(config.File.Path)
