@@ -67,3 +67,8 @@ func Error(format string, v ...interface{}) {
 		logMessage("ERROR", format, v...)
 	}
 }
+
+// CurrentLogLevel returns the current log level
+func CurrentLogLevel() LogLevel {
+	return currentLogLevel
+}

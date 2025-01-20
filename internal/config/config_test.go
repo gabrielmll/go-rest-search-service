@@ -1,7 +1,6 @@
-package tests
+package config
 
 import (
-	"go-rest-search-service/internal/config"
 	"os"
 	"strings"
 	"testing"
@@ -29,7 +28,7 @@ file:
 	}
 
 	// Load the config file
-	cfg, err := config.LoadConfig(tempFile.Name())
+	cfg, err := LoadConfig(tempFile.Name())
 	if err != nil {
 		t.Fatalf("unexpected error while loading config: %v", err)
 	}
@@ -48,7 +47,7 @@ file:
 
 // TestLoadConfig_FileNotFound validates if an invalid file path will raise the expected error.
 func TestLoadConfig_FileNotFound(t *testing.T) {
-	_, err := config.LoadConfig("non-existent-file.yaml")
+	_, err := LoadConfig("non-existent-file.yaml")
 	if err == nil {
 		t.Fatal("expected an error for a non-existent file, but got none")
 	}
@@ -68,7 +67,7 @@ func TestLoadConfig_EmptyFile(t *testing.T) {
 	}
 	defer os.Remove(tempFile.Name())
 
-	_, err = config.LoadConfig(tempFile.Name())
+	_, err = LoadConfig(tempFile.Name())
 	if err == nil {
 		t.Fatal("expected an error for an empty config file, but got none")
 	}
@@ -99,7 +98,7 @@ logging:
 		t.Fatalf("failed to write to temporary file: %v", err)
 	}
 
-	_, err = config.LoadConfig(tempFile.Name())
+	_, err = LoadConfig(tempFile.Name())
 	if err == nil {
 		t.Fatal("expected an error for invalid YAML content, but got none")
 	}

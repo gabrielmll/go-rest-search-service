@@ -1,8 +1,7 @@
-package tests
+package logger
 
 import (
 	"bytes"
-	"go-rest-search-service/internal/logger"
 	"log"
 	"strings"
 	"testing"
@@ -11,27 +10,29 @@ import (
 // TestConfigureLogger_ValidLevels ensures that valid log levels are correctly configured.
 func TestConfigureLogger_ValidLevels(t *testing.T) {
 	tests := []struct {
-		level    string
-		expected string
+		name        string
+		level       string
+		expected    LogLevel
+		shouldError bool
 	}{
-		{"debug", "Log level set to debug"},
-		{"info", "Log level set to info"},
-		{"error", "Log level set to error"},
+		{"debug", "debug", DebugLevel, false},
+		{"info", "info", InfoLevel, false},
+		{"error", "error", ErrorLevel, false},
 	}
 
 	for _, tt := range tests {
-		t.Run(tt.level, func(t *testing.T) {
-			var buf bytes.Buffer
-			log.SetOutput(&buf)
+		t.Run(tt.name, func(t *testing.T) {
 
-			err := logger.ConfigureLogger(tt.level)
-			if err != nil {
-				t.Fatalf("unexpected error: %v", err)
+			err := ConfigureLogger(tt.level)
+
+			// Check if error is expected
+			if (err != nil) != tt.shouldError {
+				t.Fatalf("expected error: %v, got: %v", tt.shouldError, err)
 			}
 
-			logOutput := buf.String()
-			if !strings.Contains(logOutput, tt.expected) {
-				t.Errorf("expected log output to contain %q, got %q", tt.expected, logOutput)
+			// Ensure log level is correctly set
+			if CurrentLogLevel() != tt.expected {
+				t.Errorf("expected log level: %v, got: %v", tt.expected, CurrentLogLevel())
 			}
 		})
 	}
@@ -43,7 +44,7 @@ func TestConfigureLogger_InvalidLevel(t *testing.T) {
 	var buf bytes.Buffer
 	log.SetOutput(&buf)
 
-	err := logger.ConfigureLogger("invalid")
+	err := ConfigureLogger("invalid")
 	if err == nil {
 		t.Fatal("expected an error but got none")
 	}
@@ -60,9 +61,9 @@ func TestLogMessage_Debug(t *testing.T) {
 	var buf bytes.Buffer
 	log.SetOutput(&buf)
 
-	_ = logger.ConfigureLogger("debug") // Set log level to debug
+	_ = ConfigureLogger("debug") // Set log level to debug
 
-	logger.Debug("This is a debug message")
+	Debug("This is a debug message")
 	output := buf.String()
 
 	if !strings.Contains(output, "[DEBUG] This is a debug message") {
@@ -76,9 +77,9 @@ func TestLogMessage_Info(t *testing.T) {
 	var buf bytes.Buffer
 	log.SetOutput(&buf)
 
-	_ = logger.ConfigureLogger("info") // Set log level to info
+	_ = ConfigureLogger("info") // Set log level to info
 
-	logger.Info("This is an info message")
+	Info("This is an info message")
 	output := buf.String()
 
 	if !strings.Contains(output, "[INFO] This is an info message") {
@@ -92,9 +93,9 @@ func TestLogMessage_Error(t *testing.T) {
 	var buf bytes.Buffer
 	log.SetOutput(&buf)
 
-	_ = logger.ConfigureLogger("error") // Set log level to error
+	_ = ConfigureLogger("error") // Set log level to error
 
-	logger.Error("This is an error message")
+	Error("This is an error message")
 	output := buf.String()
 
 	if !strings.Contains(output, "[ERROR] This is an error message") {
@@ -108,11 +109,11 @@ func TestLogMessage_LevelFiltering(t *testing.T) {
 	var buf bytes.Buffer
 	log.SetOutput(&buf)
 
-	_ = logger.ConfigureLogger("info") // Set log level to info
+	_ = ConfigureLogger("info") // Set log level to info
 
-	logger.Debug("This debug message should not appear")
-	logger.Info("This info message should appear")
-	logger.Error("This error message should appear")
+	Debug("This debug message should not appear")
+	Info("This info message should appear")
+	Error("This error message should appear")
 
 	output := buf.String()
 
