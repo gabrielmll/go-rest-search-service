@@ -4,10 +4,10 @@ import (
 	"log"
 	"net/http"
 
+	"go-rest-search-service/internal/api"
 	"go-rest-search-service/internal/config"
 	"go-rest-search-service/internal/logger"
 	"go-rest-search-service/internal/utils"
-	"go-rest-search-service/pkg/api"
 )
 
 func main() {
