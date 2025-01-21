@@ -11,8 +11,8 @@ import (
 func EndpointHandler(numbers []int) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		urlParts := strings.Split(r.URL.Path, "/")
-		indexStr := urlParts[len(urlParts)-1]
-		index, err := strconv.Atoi(indexStr)
+		targetStr := urlParts[len(urlParts)-1]
+		target, err := strconv.Atoi(targetStr)
 		if err != nil {
 			SendResponse(
 				w,
@@ -22,13 +22,21 @@ func EndpointHandler(numbers []int) http.HandlerFunc {
 			return
 		}
 
-		value := service.GetNumber(numbers, index)
+		indexFound, valueFound, notFoundMessage := service.BinarySearchValue(numbers, target)
+		if notFoundMessage != "" {
+			SendResponse(
+				w,
+				http.StatusOK,
+				notFoundMessage,
+				nil, nil)
+			return
+		}
 
 		SendResponse(
 			w,
 			http.StatusOK,
 			"",
-			&index,
-			&value)
+			&indexFound,
+			&valueFound)
 	}
 }

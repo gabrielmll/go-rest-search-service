@@ -30,8 +30,8 @@ func main() {
 	}
 	logger.Info("Numbers loaded from %s\n", config.File.Path)
 
-	// Register api endpoints
-	http.HandleFunc("/test/", api.EndpointHandler(numbers))
+	// Register api endpoint
+	http.HandleFunc("/endpoint/", api.EndpointHandler(numbers))
 
 	logger.Info("Starting server on port: %s\n", config.Server.Port)
 	log.Fatal(http.ListenAndServe(":"+config.Server.Port, nil))
