@@ -2,6 +2,7 @@ package logger
 
 import (
 	"fmt"
+	"io"
 	"log"
 	"strings"
 	"time"
@@ -71,4 +72,9 @@ func Error(format string, v ...interface{}) {
 // CurrentLogLevel returns the current log level
 func CurrentLogLevel() LogLevel {
 	return currentLogLevel
+}
+
+// SetOutput allows redirecting log output for testing
+func SetOutput(w io.Writer) {
+	log.SetOutput(w)
 }
