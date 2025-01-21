@@ -7,6 +7,7 @@ import (
 	"testing"
 )
 
+// TestEndpointHandler tests the 4 different possibilities handled by the EndpointHandler
 func TestEndpointHandler(t *testing.T) {
 	numbers := []int{0, 10, 20, 30, 40, 50}
 

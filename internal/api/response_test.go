@@ -7,6 +7,7 @@ import (
 	"testing"
 )
 
+// TestSendResponse verifies the SendResponse function generates the correct HTTP response for various inputs.
 func TestSendResponse(t *testing.T) {
 	tests := []struct {
 		name           string

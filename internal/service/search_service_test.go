@@ -4,6 +4,7 @@ import (
 	"testing"
 )
 
+// TestBinarySearchValue validates the behavior of the binary search function.
 func TestBinarySearchValue(t *testing.T) {
 	numbers := []int{0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100}
 
@@ -77,6 +78,7 @@ func TestBinarySearchValue(t *testing.T) {
 	}
 }
 
+// TestFindClosest ensures this helper function accurately identifies the closest value within a 10% margin.
 func TestFindClosest(t *testing.T) {
 	numbers := []int{0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100}
 

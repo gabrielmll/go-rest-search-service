@@ -10,6 +10,7 @@ import (
 	"go-rest-search-service/internal/utils"
 )
 
+// main initializes the configuration, logger, data loading, and starts the HTTP server.
 func main() {
 	// Init configuration
 	config, err := config.LoadConfig("config.yaml")

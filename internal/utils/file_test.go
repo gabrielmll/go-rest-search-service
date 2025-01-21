@@ -6,6 +6,7 @@ import (
 	"testing"
 )
 
+// TestLoadNumbersFile validates the proper reading and parsing of a file containing integers.
 func TestLoadNumbersFile(t *testing.T) {
 	createTempFile := func(content string) (string, func(), error) {
 		tmpFile, err := os.CreateTemp("", "test-numbers-*.txt")

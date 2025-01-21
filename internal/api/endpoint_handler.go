@@ -8,6 +8,7 @@ import (
 	"go-rest-search-service/internal/service"
 )
 
+// EndpointHandler handles HTTP requests to search for a target value in a slice of numbers.
 func EndpointHandler(numbers []int) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		urlParts := strings.Split(r.URL.Path, "/")
