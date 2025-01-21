@@ -24,6 +24,11 @@ test-report:
 fmt:
 	$(GO) fmt ./...
 
+# Target to run the project
+.PHONY: run
+run:
+	$(GO) run ./cmd
+
 # Target to build the project
 .PHONY: build
 build:
