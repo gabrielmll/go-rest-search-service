@@ -29,13 +29,11 @@ The project uses Go modules for dependency management, so simply run:
 
 ## Running the Service
 After configuring the application, run the service with:
-
     ```bash
     make run
 
-If logger is set to show INFO, you should see this output:
- 
-    ```bash
+If logger is set to show INFO, you should see this output: 
+    ```console
     2025-01-21 20:45:35 [INFO] Logger initialized. Log level set to debug
     2025-01-21 20:45:36 [INFO] Numbers loaded from input.txt
     2025-01-21 20:45:36 [INFO] Starting server on port: 8080
@@ -45,7 +43,7 @@ If logger is set to show INFO, you should see this output:
 
 
 ## File Structure
-
+```
 /go-rest-search-service
 ├── cmd/
 │   └── main.go            # Entry point for the API server
