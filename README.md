@@ -40,6 +40,26 @@ If logger is set to show INFO, you should see this output:
    2025-01-21 20:45:36 [INFO] Starting server on port: 8080
    ```
 
+### or via Docker
+Alternatively, you can run the application making use of the dockerfile.
+You must have docker installed, and so run:
+
+   ```bash
+   docker build -t go-rest-search-service .
+   ```
+Which should take a while longer if it's the first time.
+And then:
+
+   ```bash
+   docker run -p 8080:8080 go-rest-search-service
+   ```
+
+The same output should be seen, like
+   ```bash
+   2025-01-22 00:49:00 [INFO] Logger initialized. Log level set to debug
+   2025-01-22 00:49:00 [INFO] Numbers loaded from input.txt
+   2025-01-22 00:49:00 [INFO] Starting server on port: 8080
+   ```
 
 ## API Endpoint
 
