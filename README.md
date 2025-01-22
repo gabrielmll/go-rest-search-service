@@ -29,14 +29,16 @@ The project uses Go modules for dependency management, so simply run:
 
 ## Running the Service
 After configuring the application, run the service with:
-   ```
+   ```bash
    make run
+   ```
 
 If logger is set to show INFO, you should see this output: 
-   ```
+   ```bash
    2025-01-21 20:45:35 [INFO] Logger initialized. Log level set to debug
    2025-01-21 20:45:36 [INFO] Numbers loaded from input.txt
    2025-01-21 20:45:36 [INFO] Starting server on port: 8080
+   ```
 
 
 ## API Endpoint
@@ -55,6 +57,7 @@ Searches for the value in the list of numbers. If an exact match is found, it re
     "index": <index>,
     "value": <value>
   }
+  ```
 
 #### Success Response but Value Not Foundf:
 - **Status**: 200 OK
@@ -63,7 +66,8 @@ Searches for the value in the list of numbers. If an exact match is found, it re
   {
     "status": 200,
     "errorMessage": "Value not found within acceptable margin"
-  } 
+  }
+  ```
 
 #### Invalid Parameter
 - **Status**: 400 Bad Request
@@ -73,28 +77,32 @@ Searches for the value in the list of numbers. If an exact match is found, it re
     "status": 400,
     "errorMessage": "Invalid parameter. Must be an integer."
   }
+  ```
 
 ## Running Tests
 To run the tests, use the Makefile:
    ```bash
    make test
+   ```
 
 or for test coverage:
    ```bash
    make test-coverage
+   ```
 
 ## File Structure
-```
-/go-rest-search-service
-├── cmd/
-│   └── main.go            # Entry point for the API server
-├── internal/
-│   ├── api/               # API handlers and routing
-│   ├── config/            # Configuration loading
-|   ├── logger/            # Logging utilities
-│   ├── service/           # Business logic (binary search)
-│   └── utils/             # Helper functions (file reading)
-├── config.yaml            # Configuration file
-├── Makefile               # Build and test automation
-├── README.md              # Project documentation
-└── go.mod                 # Go module file
+   ```
+   /go-rest-search-service
+   ├── cmd/
+   │   └── main.go            # Entry point for the API server
+   ├── internal/
+   │   ├── api/               # API handlers and routing
+   │   ├── config/            # Configuration loading
+   |   ├── logger/            # Logging utilities
+   │   ├── service/           # Business logic (binary search)
+   │   └── utils/             # Helper functions (file reading)
+   ├── config.yaml            # Configuration file
+   ├── Makefile               # Build and test automation
+   ├── README.md              # Project documentation
+   └── go.mod                 # Go module file
+   ```
